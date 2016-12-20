@@ -1,0 +1,30 @@
+{
+  "name": "Sbu AI",
+  "short_name": "Sbu.ai",
+  "description": "A simple app that reads the weather forecast, an inspirational quote and top stories from Hacker News.",
+  "start_url": "./index.html?utm=homescreen",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
+  "icons": [{
+    "src": "./images/icons/android-chrome-192x192.png",
+    "type": "image/png",
+    "sizes": "192x192"
+  },
+    {
+      "src": "./images/icons/android-chrome-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }],
+  "author": {
+    "name": "Bakani Pilime",
+    "website": "https://bzmp.frello.co.zw",
+    "github": "https://github.com/bzmp125",
+    "twitter": "https://twitter.com/afrikancoder",
+    "facebook":"https://fb.com/bzmpilime",
+    "source-repo": "https://github.com/bzmp125/sbu-app"
+  },
+  "gcm_sender_id": "847244712742",
+  "gcm_user_visible_only": true
+}

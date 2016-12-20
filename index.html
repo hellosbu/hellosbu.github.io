@@ -1,1 +1,143 @@
-"Hello World" 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sbu.ai</title>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=description content="Sbu is an artificial personal assistant who can read out the news, weather and much more.">
+    <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0288d1">
+    <meta name="msapplication-TileColor" content="#0288d1">
+    <meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sbu.ai">
+    <meta name="application-name" content="Sbu.ai">
+    <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="./images/icons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./images/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="./js/skycons.js"></script>
+    <script src="functions.js"></script>
+    <script>
+        //checking for first time use
+        if(ls("ftud")!="1"){
+            window.location = 'start.html';
+            exit;
+        }
+    </script>
+</head>
+<body>
+<div class="app app__layout">
+    <header>
+      <span class="header__icon">
+        <svg class="menu__icon no--select" width="24px" height="24px" viewBox="0 0 48 48" fill="#fff">
+          <path d="M6 36h36v-4H6v4zm0-10h36v-4H6v4zm0-14v4h36v-4H6z"></path>
+        </svg>
+      </span>
+
+        <span class="header__title no--select">sbu.ai</span>
+    </header>
+
+    <div class="menu">
+        <div class="menu__header"></div>
+        <ul class="menu__list">
+            <li><a target="_blank" rel="noopener" href="https://github.com/gokulkrishh">App Template Author</a></li>
+            <li><a target="_blank" rel="noopener" href="https://github.com/gokulkrishh/demo-progressive-web-app">Source</a></li>
+            <li><a target="_blank" rel="noopener" href="https://github.com/bzmp125">HelloSbu Author</a></li>
+            <li><a target="_blank" rel="noopener" href="https://github.com/bzmp125/hellosbu">HelloSbu Source</a></li>
+        </ul>
+    </div>
+    <div class="menu__overlay"></div>
+
+    <div class="app__content">
+
+        <div class="card" id="weather-card">
+            <div class="card__spinner"></div>
+            <div class="card__container">
+                <div class="weather-card-top" id="weather-card-top">
+                    <canvas id="icon" width="64" height="64" class="card__img"></canvas>
+                    <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;">
+                        <span id="card__average_temperature"></span>
+                        <span id="card__min_temperature" style="color:white;text-decoration:none;font-size:12pt;text-align:center;"></span></p>
+                    <p id="card__weather_description" class="card__weather_description" style="color:white;text-decoration:none;font-size:16pt;text-align:center;display: block;width: 100%;margin-bottom:2%"></p>
+                </div>
+                <p class="card__temp">
+                    <b>Suggestion: </b><span id="card__suggestion"></span>
+                </p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card__spinner"></div>
+            <div class="card__container">
+                <div class="quote-top" id="quote-top">
+                    <blockquote id="quote" class="" style="color:white;text-decoration:none;font-size:12pt;"></blockquote>
+                </div>
+                <p class="card__temp" style="text-align: center;float:left" id="quote-author"></p>
+<!--https://twitter.com/intent/tweet?text=%22If+you+listen+to+your+fears%2c+you+will+die+never+knowing+what+a+great+person+you+might+have+been.%22+%E2%80%94Robert+Schuller&via=momentumdash&related=momentumdash,levibucsis,jaywaterman-->
+            </div>
+        </div>
+        <h1 style="text-align:center" id="tech-news-title">Tech News</h1>
+        <div class="tech-news">
+        </div>
+        <h1 style="text-align:center" id="general-news-title">General News</h1>
+        <div class="general-news">
+        </div>
+        <h1 style="text-align:center" id="sports-news-title">Sports News</h1>
+        <div class="sports-news">
+        </div>
+        <h1 style="text-align:center" id="entertainment-news-title">Entertainment News</h1>
+        <div class="entertainment-news">
+        </div>
+        <h1 style="text-align:center" id="business-news-title">Business News</h1>
+        <div class="business-news">
+        </div>
+
+        <div class="card__spinner"></div>
+
+        <!-- Toast msg's  -->
+        <div class="toast__container"></div>
+    </div>
+</div>
+
+<!-- JS Files  -->
+<script type="text/javascript">
+    //If serviceWorker supports, then register it.
+    if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register('./serviceWorker.js', { scope: "./" }) //setting scope of sw
+                .then(function (registration) {
+                    console.info('Service worker is registered!');
+                })
+                .catch(function (error) {
+                    console.error('Service worker failed ', error);
+                });
+    }
+</script>
+<script src="./js/toast.js"></script>
+<script src="./js/offline.js"></script>
+<script src="./js/app.js"></script>
+<script src="./js/push.js"></script>
+<script src="./js/sync.js"></script>
+<script src="./js/share.js"></script>
+<script src="./js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    var icons = new Skycons({"color": "#212121"}),
+            list  = [
+                "clear-day","partly-cloudy-night","rain","fog","snow","cloudy"
+            ],
+            i;
+
+    for(i = list.length; i--; )
+        icons.set(list[i], list[i]);
+    icons.play();
+</script>
+<script src="config.js"></script>
+<script src="functions.js"></script>
+<script src="Greeting.js"></script>
+<script src="index.js"></script>
+<script src="User.js"></script>
+</body>
+</html>

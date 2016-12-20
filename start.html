@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sbu.ai</title>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=description content="Sbu is an artificial personal assistant who can read out the news, weather and much more.">
+    <meta name=viewport content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#0288d1">
+    <meta name="msapplication-TileColor" content="#0288d1">
+    <meta name="msapplication-TileImage" content="./images/icons/mstile-150x150.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Sbu.ai">
+    <meta name="application-name" content="Sbu.ai">
+    <link rel="apple-touch-icon" href="./images/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="./images/icons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="./images/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,700">
+    <link rel="stylesheet" href="./css/styles.css">
+    <style>
+        body {
+            background: #0288d1;
+        }
+        #siric {
+            width: auto;
+            height: auto;
+            display: block;
+            margin: 0 12%;
+            margin-top: 80%;
+            bottom:0px;
+        }
+    </style>
+<body>
+<div class="app__content">
+    <div id="siric"></div>
+
+    <div id="name-section" style="display: none;">
+        <h1>What is your name?</h1>
+        <h5 id="say-it-out-not">You can also say it out.</h5>
+        <div class="add__to-card" id="name-input">
+            <input type="text" class="add__input" placeholder="What should I call you?" id="name"/>
+            <button class="add__btn" onclick=saveName("true")>Next >></button>
+        </div>
+        <p id="final-result"></p>
+        <span id="interim-result"></span>
+    </div>
+    <div id="preferences-section" style="display: none;">
+        <form id="preference-form">
+            <div class="card" id="tech-card">
+                <div class="card__spinner"></div>
+                <div class="card__container">
+                    <div class="card-top" id="tech-card-top">
+                        <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;padding:5%">
+                            <span id="">Tech</span>
+                        </p>
+                    </div>
+                    <p class="card__temp" id="tech-selection-area">
+                        <label for="tech">Get updates on all things tech!</label>
+                        <input type="checkbox" name="tech" id="tech" class="checkbox">
+                    </p>
+                </div>
+            </div>
+            <div class="card" id="general-card">
+                <div class="card__spinner"></div>
+                <div class="card__container">
+                    <div class="card-top" id="general-card-top">
+                        <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;">
+                            <span>General</span>
+                        </p>
+                    </div>
+                    <p class="card__temp">
+                        <label for="tech">Stay updated with latest news.</label>
+                        <input type="checkbox" name="general" id="general" class="checkbox">
+                    </p>
+                </div>
+            </div>
+            <div class="card" id="sports-card">
+                <div class="card__spinner"></div>
+                <div class="card__container">
+                    <div class="card-top" id="sports-card-top">
+                        <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;">
+                            <span>Sports</span>
+                        </p>
+                    </div>
+                    <p class="card__temp">
+                        <label for="tech">WHen its a score you will know.</label>
+                        <input type="checkbox" name="sports" id="sports" class="checkbox">
+                    </p>
+                </div>
+            </div>
+            <div class="card" id="entertainment-card">
+                <div class="card__spinner"></div>
+                <div class="card__container">
+                    <div class="weather-card-top" id="entertainment-card-top">
+                        <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;">
+                            <span>Entertainment</span>
+                        </p>
+                    </div>
+                    <p class="card__temp">
+                        <label for="tech">Don't miss any trend or story.</label>
+                        <input type="checkbox" name="entertainment" id="entertainment" class="checkbox">
+                    </p>
+                </div>
+            </div>
+            <div class="card" id="business-card">
+                <div class="card__spinner"></div>
+                <div class="card__container">
+                    <div class="weather-card-top" id="business-card-top">
+                        <p class="card__average_temperature" style="color:white;text-decoration:none;font-size:25pt;text-align:center;">
+                            <span>Business</span>
+                        </p>
+                        <p id="card__weather_description" class="card__weather_description" style="color:white;text-decoration:none;font-size:16pt;text-align:center;display: block;width: 100%;margin-bottom:2%"></p>
+                    </div>
+                    <p class="card__temp">
+                        <label for="tech">Know whats really going on in the world!</label>
+                        <input type="checkbox" name="business" id="business" class="checkbox">
+                    </p>
+                </div>
+            </div>
+        </form>
+        <div class="add__to-card">
+            <button class="add__btn" onclick=saveUserPreferences()>Continue >></button>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="config.js"></script>
+<script src="functions.js"></script>
+<script src="Greeting.js"></script>
+<script src="User.js"></script>
+<script src="siriwave.js"></script>
+<script src="start.js"></script>
+</body>
+</html>

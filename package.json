@@ -1,0 +1,26 @@
+{
+  "name": "demo-progressive-web-app",
+  "description": "Demo progressive web application",
+  "version": "1.0.0",
+  "author": "gokulkrishh",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "hexo-deployer-git": "^0.2.0",
+    "node-gcm": "^0.14.0",
+    "text-to-speech-js": "^1.1.4"
+  },
+  "engines": {
+    "node": "4.1.1"
+  },
+  "scripts": {
+    "start": "npm run css && node server.js",
+    "css": "postcss -u autoprefixer -r css/*",
+    "postinstall": "npm run start"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "postcss-cli": "^2.6.0"
+  }
+}
