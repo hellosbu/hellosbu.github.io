@@ -35,7 +35,11 @@ var getQuotes = function(){
 						could use the onerror of speechSynthesis, maybe pass a second callback to speak and let it handle errors
 					 */
 
-					speak("One inspiration a day keeps the depression away. Your quote for the day is from " + quote.author + ", and says, "+quote.quote)
+					if(quote.quote.length<300)
+						speak("One inspiration a day keeps the depression away. Your quote for the day is from " + quote.author + ", and says, "+quote.quote, function(){
+							
+						})
+
 				}
 			}
 		}
