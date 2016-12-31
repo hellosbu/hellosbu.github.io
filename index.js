@@ -18,7 +18,7 @@ if(!greeting.doneToday())
 
 var getQuotes = function(){
 	var xhr = new XMLHttpRequest();
-	xhr.open("GET", "http://quotes.rest/qod.json?category=inspire", true);
+	xhr.open("GET", "https://quotes.rest/qod.json?category=inspire", true);
 	xhr.onload = function (e) {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200) {
