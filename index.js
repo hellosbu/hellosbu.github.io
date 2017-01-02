@@ -1,4 +1,9 @@
-﻿var ss = window.speechSynthesis;
+notyNot('Sbu App', {
+	body: 'This is some body content!',
+	title:'Sbu App'
+}, function(){
+});
+var ss = window.speechSynthesis;
 var greeting = new Greeting();
 //because it's good practise to cancel ss before using it
 ss.cancel();
@@ -61,24 +66,24 @@ var getForecast = function(){
 	if(!city)
 		city = "Bulawayo"; //because its my home town
 
-	var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID="+openWeatherMapKey+"&units=metric";
+//	var url = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&APPID="+openWeatherMapKey+"&units=metric";
+	var url = "https://api.apixu.com/v1/current.json?key=bc6d41af8b2f4c3f9fc210445163112&q=Bulawayo";
 	/*
 		PS. The Fetch API is totally cool with the promises and all, but I'll not even rant.
 	 */
 	fetch(url, { method: 'GET' })
 		.then(function(fetchResponse){ return fetchResponse.json() })
 		.then(function(response) {
-			var weather = response.weather[0];
+			var weather = response.current;
 
 			//setting the forecast image image for the day
-			getForecastImage(weather);
 
-			var avgTemp = Math.round(number_format(response.main.temp,".",""));
-			var minTemp = Math.round(number_format(response.main.temp_min,".",""));
+			var avgTemp = Math.round(number_format(weather.temp_c,".",""));
+			var minTemp = Math.round(number_format(weather.feelslike_c,".",""));
 
-			speak("Todays weather description is: " + weather.description+", and average temperature in, "+ls("city")+", will be " + avgTemp + "degrees celcius.");
+			speak("Todays weather description is: " + weather.condition.text+", and average temperature in, "+ls("city")+", will be " + avgTemp + "degrees celcius.");
 
-			document.getElementById('card__weather_description').innerText = weather.main;
+			document.getElementById('card__weather_description').innerText = weather.condition.text;
 			document.getElementById('card__average_temperature').innerText = avgTemp+" °C";
 			document.getElementById('card__min_temperature').innerText = minTemp + "°C (min)";
 
@@ -104,27 +109,34 @@ var getForecast = function(){
 
 */
 
-			//the result of laziness is shown below, do not follow this route. 
-			switch(weather.main.toLowerCase()){
-				case 'thunderstorm' || 'rain' || 'shower rain':
-					suggestion.long = "You should carry an umbrella or raincoat with you on your way out.";
-					suggestion.short = "Carry umbrella or raincoat.";
-					icons.set("icon", 'rain');
-					break;
-				case 'clouds':
-					suggestion.long = "You never know, the rains might come, so just carry that umbrella in case.";
-					suggestion.short = "Clouds could mean rains are coming.";
-					icons.set("icon", 'cloudy');
-					break;
-				case 'clear sky' || 'sky':
-					suggestion.long = "You will have clear skies above you today, so, if you can spend much time outside and enjoy the goodness of God\'s creation.";
-					suggestion.short = "Feel free to wear anything.";
-					break;
+			var description = weather.condition.text;
+			var forecastImgText = '';
+			if(description.indexOf('thunderstorm')!=-1 || description.indexOf('rain')!=-1 || description.indexOf('shower rain')!=-1){
+				suggestion.long = "You should carry an umbrella or raincoat with you on your way out.";
+				suggestion.short = "Carry umbrella or raincoat.";
+				icons.set("icon", 'rain');
+				forecastImgText='rain';
+			}else if(description.indexOf('clouds')!=-1){
+				suggestion.long = "You never know, the rains might come, so just carry that umbrella in case.";
+				suggestion.short = "Clouds could mean rains are coming.";
+				icons.set("icon", 'cloudy');
+				forecastImgText='clouds';
+			}else if(description.indexOf('clear sky')!=-1 || description.indexOf('sky')){
+				suggestion.long = "You will have clear skies above you today, so, if you can spend much time outside and enjoy the goodness of God\'s creation.";
+				suggestion.short = "Feel free to wear anything.";
+				forecastImgText='clear sky';
+			}else{
+				if((new Date()).getHours()<18)
+					forecastImgText='clear sky';
+				else
+					forecastImgText = 'beautiful night';
 
-				default:
-					suggestion.short = "Unavailable";
-					suggestion.long = "Sometimes as a human being, you just have to do things on your own, So today, naah fam. I a'int telling you what to wear.";
+				suggestion.short = "Unavailable";
+				suggestion.long = "Sometimes as a human being, you just have to do things on your own, So today, naah fam. I a'int telling you what to wear.";
 			}
+			getForecastImage(forecastImgText);
+
+			//the result of laziness is shown below, do not follow this route.
 
 			icons.play();
 
@@ -141,11 +153,11 @@ var getForecast = function(){
 		});
 }();
 
-var getForecastImage = function(weather){
+var getForecastImage = function(weather_description){
 	var per_page = 50;
 	var max;
 
-	var url = "https://pixabay.com/api/?per_page="+per_page+"&min_width=150&q=beautiful+"+weather.main+"&image_type=photo&key="+pixalbayKey+"&order=popular&pretty=true";
+	var url = "https://pixabay.com/api/?per_page="+per_page+"&min_width=150&q=beautiful+"+weather_description+"&image_type=photo&key="+pixalbayKey+"&order=popular&pretty=true";
 	fetch(url, { method: 'GET' })
 		.then(function(fetchResponse){ return fetchResponse.json() })
 		.then(function(response) {
